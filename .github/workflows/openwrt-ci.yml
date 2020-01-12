@@ -7,7 +7,7 @@
 # <https://github.com/KFERMercer/OpenWrt-CI>
 #
 
-name: 网件3800CH2020.1.12
+name: 网件3800CH软件包
 
 on:
   push:
@@ -148,12 +148,12 @@ jobs:
           # 常用LuCI插件选择:
           cat >> .config <<EOF
           CONFIG_PACKAGE_luci-app-adbyby-plus=y
-          # CONFIG_PACKAGE_luci-app-aria2=y
-          # CONFIG_PACKAGE_luci-app-baidupcs-web=y
-          # CONFIG_PACKAGE_luci-app-docker=y
+          CONFIG_PACKAGE_luci-app-aria2=y
+          CONFIG_PACKAGE_luci-app-baidupcs-web=y
+          CONFIG_PACKAGE_luci-app-docker=y
           CONFIG_PACKAGE_luci-app-frpc=y
-          # CONFIG_PACKAGE_luci-app-kodexplorer=y
-          # CONFIG_PACKAGE_luci-app-minidlna=y
+          CONFIG_PACKAGE_luci-app-kodexplorer=y
+          CONFIG_PACKAGE_luci-app-minidlna=y
           CONFIG_PACKAGE_luci-app-openvpn=y
           CONFIG_PACKAGE_luci-app-openvpn-server=y
           CONFIG_PACKAGE_luci-app-qbittorrent=y
@@ -166,15 +166,15 @@ jobs:
           CONFIG_PACKAGE_luci-app-v2ray-server=y
           CONFIG_PACKAGE_luci-app-verysync=y
           CONFIG_PACKAGE_luci-app-webadmin=y
-          # CONFIG_PACKAGE_luci-app-wireguard=y
-          # CONFIG_PACKAGE_luci-app-wrtbwmon=y
+          CONFIG_PACKAGE_luci-app-wireguard=y
+          CONFIG_PACKAGE_luci-app-wrtbwmon=y
           CONFIG_PACKAGE_luci-app-koolproxyR
           EOF
 
           # LuCI主题:
           cat >> .config <<EOF
           CONFIG_PACKAGE_luci-theme-argon=y
-          # CONFIG_PACKAGE_luci-theme-netgear=y
+          CONFIG_PACKAGE_luci-theme-netgear=y
           EOF
 
           # 常用软件包:
@@ -219,11 +219,12 @@ jobs:
           du -h --max-depth=1 ./build_dir
           du -h --max-depth=1 ./bin
 
-      - name: Prepare artifact
-        run: find ./bin/targets/ -type d -name "packages" | xargs rm -rf {}
+      # - name: Prepare artifact
+      #   run: find ./bin/targets/ -type d -name "packages" | xargs rm -rf {}
 
       - name: Upload artifact
         uses: actions/upload-artifact@master
         with:
           name: OpenWrt firmware
-          path: ./bin/targets/
+          # path: ./bin/targets/
+          path: ./bin/
