@@ -58,6 +58,7 @@ jobs:
         run: |
           cd package
           git clone https://github.com/Ameykyl/luci-app-koolproxyR
+          git clone https://github.com/maxlicheng/luci-app-ssr-plus.git
           
           
       - name: Update feeds
@@ -146,36 +147,36 @@ jobs:
           # EOF
 
           # 常用LuCI插件选择:
-          cat >> .config <<EOF
-          CONFIG_PACKAGE_luci-app-adbyby-plus=y
-          CONFIG_PACKAGE_luci-app-aria2=y
-          CONFIG_PACKAGE_luci-app-baidupcs-web=y
-          CONFIG_PACKAGE_luci-app-docker=y
-          CONFIG_PACKAGE_luci-app-frpc=y
-          CONFIG_PACKAGE_luci-app-kodexplorer=y
-          CONFIG_PACKAGE_luci-app-minidlna=y
-          CONFIG_PACKAGE_luci-app-openvpn=y
-          CONFIG_PACKAGE_luci-app-openvpn-server=y
-          CONFIG_PACKAGE_luci-app-qbittorrent=y
-          CONFIG_PACKAGE_luci-app-ssr-plus_INCLUDE_Kcptun=y
-          CONFIG_PACKAGE_luci-app-ssr-plus_INCLUDE_Shadowsocks=y
-          CONFIG_PACKAGE_luci-app-ssr-plus_INCLUDE_ShadowsocksR_Server=y
-          CONFIG_PACKAGE_luci-app-ssr-plus_INCLUDE_ShadowsocksR_Socks=y
-          CONFIG_PACKAGE_luci-app-ssr-plus_INCLUDE_V2ray=y
-          CONFIG_PACKAGE_luci-app-ttyd=y
-          CONFIG_PACKAGE_luci-app-v2ray-server=y
-          CONFIG_PACKAGE_luci-app-verysync=y
-          CONFIG_PACKAGE_luci-app-webadmin=y
-          CONFIG_PACKAGE_luci-app-wireguard=y
-          CONFIG_PACKAGE_luci-app-wrtbwmon=y
-          CONFIG_PACKAGE_luci-app-koolproxyR
-          EOF
+          # cat >> .config <<EOF
+          # CONFIG_PACKAGE_luci-app-adbyby-plus=y
+          # CONFIG_PACKAGE_luci-app-aria2=y
+          # CONFIG_PACKAGE_luci-app-baidupcs-web=y
+          # CONFIG_PACKAGE_luci-app-docker=y
+          # CONFIG_PACKAGE_luci-app-frpc=y
+          # CONFIG_PACKAGE_luci-app-kodexplorer=y
+          # CONFIG_PACKAGE_luci-app-minidlna=y
+          # CONFIG_PACKAGE_luci-app-openvpn=y
+          # CONFIG_PACKAGE_luci-app-openvpn-server=y
+          # CONFIG_PACKAGE_luci-app-qbittorrent=y
+          # CONFIG_PACKAGE_luci-app-ssr-plus_INCLUDE_Kcptun=y
+          # CONFIG_PACKAGE_luci-app-ssr-plus_INCLUDE_Shadowsocks=y
+          # CONFIG_PACKAGE_luci-app-ssr-plus_INCLUDE_ShadowsocksR_Server=y
+          # CONFIG_PACKAGE_luci-app-ssr-plus_INCLUDE_ShadowsocksR_Socks=y
+          # CONFIG_PACKAGE_luci-app-ssr-plus_INCLUDE_V2ray=y
+          # CONFIG_PACKAGE_luci-app-ttyd=y
+          # CONFIG_PACKAGE_luci-app-v2ray-server=y
+          # CONFIG_PACKAGE_luci-app-verysync=y
+          # CONFIG_PACKAGE_luci-app-webadmin=y
+          # CONFIG_PACKAGE_luci-app-wireguard=y
+          # CONFIG_PACKAGE_luci-app-wrtbwmon=y
+          # CONFIG_PACKAGE_luci-app-koolproxyR
+          # EOF
 
           # LuCI主题:
-          cat >> .config <<EOF
-          CONFIG_PACKAGE_luci-theme-argon=y
-          CONFIG_PACKAGE_luci-theme-netgear=y
-          EOF
+          # cat >> .config <<EOF
+          # CONFIG_PACKAGE_luci-theme-argon=y
+          # CONFIG_PACKAGE_luci-theme-netgear=y
+          # EOF
 
           # 常用软件包:
           # cat >> .config <<EOF
@@ -189,10 +190,10 @@ jobs:
           # EOF
 
           # 取消编译VMware镜像以及镜像填充 (不要删除被缩进的注释符号):
-          cat >> .config <<EOF
-          # CONFIG_TARGET_IMAGES_PAD is not set
-          # CONFIG_VMDK_IMAGES is not set
-          EOF
+          # cat >> .config <<EOF
+          # # CONFIG_TARGET_IMAGES_PAD is not set
+          # # CONFIG_VMDK_IMAGES is not set
+          # EOF
 
           # 
           # ========================固件定制部分结束========================
@@ -209,7 +210,8 @@ jobs:
 
       - name: Compile firmware
         run: |
-          make -j$(nproc) || make -j1 V=s
+          make package/luci-app-ssr-plus/compile V=s
+          # make -j$(nproc) || make -j1 V=s
           echo "======================="
           echo "Space usage:"
           echo "======================="
@@ -225,6 +227,6 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-artifact@master
         with:
-          name: OpenWrt firmware
+          name: OpenWrt package ssr
           # path: ./bin/targets/
           path: ./bin/
