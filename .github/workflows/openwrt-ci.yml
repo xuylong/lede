@@ -10,9 +10,9 @@
 name: 网件3800CH软件包
 
 on:
-  push:
-    branches: 
-      - master
+  # push:
+    # branches: 
+      # - master
   # schedule:
   #   - cron: 0 20 * * *
   # release:
