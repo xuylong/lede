@@ -185,7 +185,8 @@ jobs:
           df -h
       - name: Compile firmware
         run: |
-          make -j$(nproc) || make -j1 V=s
+          # make -j$(nproc) || make -j1 V=s
+          make package luci-app-koolproxyR V=s
           echo "======================="
           echo "Space usage:"
           echo "======================="
@@ -200,5 +201,5 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-artifact@master
         with:
-          name: OpenWrt firmware
-          path: ./bin/
+          name: koolproxyR
+          path: ./bin/packages/
